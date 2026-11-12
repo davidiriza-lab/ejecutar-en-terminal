@@ -86,7 +86,7 @@ Todo está en `extension.js` (un archivo, sin dependencias):
 1. Agrega la opción al menú de clic derecho del panel del chat (`webview/context`) y del editor (`editor/context`).
 2. Para leer la selección del chat escribe una marca en el portapapeles, dispara el comando normal de copiar y espera a que la marca cambie. Si no cambia, no ejecuta nada y te devuelve lo que tenías copiado: así nunca corre algo viejo.
 3. Manda el texto a una terminal propia y, con la API de integración de shell, espera a que termine y lee la salida y el código de salida.
-4. Limpia colores y barras de progreso, copia el resultado, esconde el panel y te regresa el cursor a la caja de Claude.
+4. Limpia colores y barras de progreso, copia el resultado, esconde el panel y le pide a Claude Code que enfoque su caja de texto.
 
 ## Desarrollo
 
