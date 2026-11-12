@@ -1,0 +1,65 @@
+{
+	"name": "ejecutar-en-terminal",
+	"displayName": "Ejecutar en la terminal · David Iriza",
+	"description": "Clic derecho sobre un texto seleccionado (en el chat de Claude Code, de Codex o en un archivo) → se ejecuta en la terminal, el panel se esconde al terminar y el resultado queda copiado para pegarlo en el chat.",
+	"version": "0.1.0",
+	"publisher": "irizad",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.93.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/IrizaD/ejecutar-en-terminal-vscode.git"
+	},
+	"activationEvents": [],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "ejecutarEnTerminal.ejecutar",
+				"title": "Ejecutar en la terminal"
+			}
+		],
+		"menus": {
+			"webview/context": [
+				{
+					"command": "ejecutarEnTerminal.ejecutar",
+					"when": "webviewId == 'claudeVSCodePanel' || webviewId == 'claudeVSCodeSidebar' || webviewId == 'claudeVSCodeSidebarSecondary' || webviewId == 'chatgpt.sidebarView' || webviewId == 'chatgpt.sidebarSecondaryView' || webviewId == 'chatgpt.conversationEditor'",
+					"group": "0_ejecutar@1"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "ejecutarEnTerminal.ejecutar",
+					"when": "editorHasSelection",
+					"group": "navigation@0"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "ejecutarEnTerminal.ejecutar",
+					"when": "editorHasSelection"
+				}
+			]
+		},
+		"configuration": {
+			"title": "Ejecutar en la terminal",
+			"properties": {
+				"ejecutarEnTerminal.ocultarPanelAlTerminar": {
+					"type": "boolean",
+					"default": true,
+					"description": "Esconder el panel de la terminal cuando el comando termina."
+				},
+				"ejecutarEnTerminal.copiarResultado": {
+					"type": "boolean",
+					"default": true,
+					"description": "Al terminar, copiar al portapapeles el comando, su código de salida y su salida, listos para pegar en el chat."
+				}
+			}
+		}
+	}
+}
