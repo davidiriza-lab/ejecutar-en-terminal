@@ -23,8 +23,8 @@ assert.strictEqual(limpiarSalida(cruda), '✓ listo\nsegunda');
 // barra de progreso: solo queda lo último que se pintó en la línea
 assert.strictEqual(limpiarSalida('10%\r50%\r100%\r\nfin\r\n'), '100%\nfin');
 
-const r = armarResultado('vercel whoami', { salida: 'zentraly\r\n', codigo: 0 });
-assert.ok(r.includes('vercel whoami') && r.includes('Código de salida: 0') && r.includes('zentraly'));
+const r = armarResultado('vercel whoami', { salida: 'mi-equipo\r\n', codigo: 0 });
+assert.ok(r.includes('vercel whoami') && r.includes('Código de salida: 0') && r.includes('mi-equipo'));
 assert.ok(armarResultado('true', { salida: '', codigo: undefined }).includes('(sin salida)'));
 
 const larga = armarResultado('x', { salida: 'a'.repeat(30000), codigo: 1 });
