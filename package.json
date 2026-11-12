@@ -1,9 +1,9 @@
 {
 	"name": "ejecutar-en-terminal",
-	"displayName": "Ejecutar en la terminal · David Iriza",
+	"displayName": "Ejecutar en la terminal",
 	"description": "Clic derecho sobre un texto seleccionado (en el chat de Claude Code, de Codex o en un archivo) → se ejecuta en la terminal, el panel se esconde al terminar y el resultado queda copiado para pegarlo en el chat.",
-	"version": "0.1.0",
-	"publisher": "irizad",
+	"version": "0.2.0",
+	"publisher": "davidiriza-lab",
 	"license": "MIT",
 	"engines": {
 		"vscode": "^1.93.0"
@@ -13,7 +13,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/IrizaD/ejecutar-en-terminal-vscode.git"
+		"url": "https://github.com/davidiriza-lab/ejecutar-en-terminal.git"
 	},
 	"activationEvents": [],
 	"main": "./extension.js",
@@ -61,5 +61,6 @@
 				}
 			}
 		}
-	}
+	},
+	"homepage": "https://www.davidiriza.com/lab/ejecutar-con-clic-derecho"
 }

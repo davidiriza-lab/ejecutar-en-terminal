@@ -1,7 +1,8 @@
 'use strict';
 const vscode = require('vscode');
 
-const NOMBRE_TERMINAL = 'Claude ▶';
+const NOMBRE_TERMINAL = 'ejecutar';
+const PEGAR = process.platform === 'darwin' ? '⌘V' : 'Ctrl+V';
 const MAX_SALIDA = 12000; // caracteres de salida que se copian (los últimos)
 const MAX_COMANDO = 20000;
 
@@ -26,7 +27,11 @@ async function ejecutar(arg) {
 	const comando = limpiarComando(crudo || '');
 
 	if (!comando) {
-		vscode.window.showWarningMessage('Ejecutar en la terminal: no hay texto seleccionado.');
+		vscode.window.showWarningMessage(
+			desdeWebview
+				? 'Ejecutar en la terminal: no pude leer la selección. Selecciona el texto, clic derecho y elige la opción en menos de 5 segundos.'
+				: 'Ejecutar en la terminal: no hay texto seleccionado.',
+		);
 		return;
 	}
 	if (comando.length > MAX_COMANDO) {
@@ -67,6 +72,10 @@ function seleccionDeEditor() {
  * Una extensión no puede leer la selección del webview de otra extensión.
  * Se copia la selección con el comando estándar de copiar y se lee del portapapeles.
  * El centinela garantiza que nunca se ejecute algo viejo que ya estaba en el portapapeles.
+ *
+ * Límite conocido: el navegador solo deja copiar durante unos 5 segundos después de un clic
+ * real dentro del panel. Si la persona tarda más en elegir la opción del menú, no se copia
+ * nada, el centinela sigue ahí y no se ejecuta nada.
  */
 async function seleccionDeWebview() {
 	const previo = await vscode.env.clipboard.readText();
@@ -235,7 +244,7 @@ async function alTerminar(terminal, comando, resultado, desdeClaude) {
 
 	const fallo = resultado.codigo !== undefined && resultado.codigo !== 0;
 	const cabeza = fallo ? `Falló (código ${resultado.codigo})` : 'Terminó bien';
-	const cola = copiar ? ' Resultado copiado: pégalo en el chat con ⌘V.' : '';
+	const cola = copiar ? ` Resultado copiado: pégalo en el chat con ${PEGAR}.` : '';
 	const mostrar = fallo ? vscode.window.showWarningMessage : vscode.window.showInformationMessage;
 	const eleccion = await mostrar(`${cabeza}: ${resumen(comando)}.${cola}`, 'Ver terminal');
 	if (eleccion === 'Ver terminal') terminal.show();
